@@ -1,57 +1,85 @@
-📌 Checkpoint #1 (2025_2) — IMDB Top 250 (KMeans)
-📂 Estrutura do Projeto
-/
+🎬 Checkpoint #1 — 2025/2
+IMDB Top 250 — Clusterização com KMeans
+
+Nome: Thiago Almança da Silva — RM 558108
+Prazo de entrega: 14/09/2025 às 23:59 (America/Sao_Paulo)
+
+📁 Estrutura do Projeto
+.
 ├── notebooks/
-│   ├── 01_scrape_and_kmeans_synopsis.ipynb   # Web scraping + KMeans com sinopses
-│   └── 02_kmeans_all_features.ipynb          # KMeans com todas as features + comparação
-├── data/                                     # Gerada automaticamente na execução
-├── requirements.txt                          # Dependências do projeto
+│   ├── 01_scrape_and_kmeans_synopsis.ipynb      # Scraping + clusterização por sinopse
+│   └── 02_kmeans_all_features.ipynb              # Clusterização com todas as features
+├── data/                                        # Gerada automaticamente durante a execução
+│   ├── imdb_top250_raw.csv
+│   ├── imdb_top250_k5_synopsis.csv
+│   └── imdb_top250_k5_allfeatures.csv
+├── requirements.txt
 └── README.md
 
 ⚙️ Configuração do Ambiente
 
-Criar e ativar um ambiente virtual:
+Criar e ativar um ambiente virtual
 
 python -m venv .venv
-source .venv/bin/activate   # Linux/Mac
-.venv\Scripts\activate      # Windows
+# Windows
+.venv\Scripts\activate
+# Linux/macOS
+source .venv/bin/activate
 
 
-Instalar as dependências:
+Instalar as dependências
 
 pip install -r requirements.txt
 
 🚀 Execução dos Notebooks
-Notebook 1 — Scraping + KMeans (sinopses)
+Notebook 1 — 01_scrape_and_kmeans_synopsis.ipynb
 
-Realiza o scraping das sinopses dos filmes do IMDB Top 250.
+Realiza web scraping dos 250 filmes do IMDB Top 250
 
-Aplica KMeans considerando apenas o texto (TF-IDF).
+Gera a base data/imdb_top250_raw.csv
 
-Salva os seguintes arquivos:
+Aplica TF-IDF na sinopse e KMeans (k=5)
 
-data/imdb_top250_raw.csv
+Salva os resultados em data/imdb_top250_k5_synopsis.csv
 
-data/imdb_top250_k5_synopsis.csv
+Inclui análise e visualização 3D dos clusters por sinopse
 
-Notebook 2 — KMeans com todas as features
+Notebook 2 — 02_kmeans_all_features.ipynb
 
-Utiliza como entrada: sinopses + gêneros + notas + votos + ano + duração.
+Carrega os dados gerados pelo Notebook 1
 
-Aplica KMeans (k=5) com múltiplas variáveis.
+Inclui features adicionais: gêneros, notas, votos, ano e duração
 
-Compara métricas entre os dois modelos (Silhouette, Calinski-Harabasz, Davies-Bouldin).
+Executa o KMeans (k=5) com todas as features combinadas
 
-Salva:
+Salva data/imdb_top250_k5_allfeatures.csv
 
-data/imdb_top250_k5_allfeatures.csv
+Gera métricas (Silhouette, Calinski-Harabasz, Davies-Bouldin)
 
-Exibe gráficos comparativos e análise dos clusters.
+Visualiza os clusters em 3D
 
-📊 Insights e Justificativa
+Compara os resultados entre:
 
-Modelo 1 (sinopse): clusters temáticos interpretáveis, mas sensíveis a ruídos e limitações do texto.
+Modelo 1: apenas sinopse
 
-Modelo 2 (todas as features): clusters mais coesos e balanceados, com melhor separação segundo métricas.
+Modelo 2: todas as features
 
-Conclusão: O Modelo 2 é superior, pois combina semântica (sinopse) com contexto (gênero, época, rating e duração), gerando grupos mais consistentes e úteis para análise.
+📌 Entregáveis
+
+Preencher no final do Notebook 2:
+
+Insights e conclusões obtidas
+
+Justificativa clara sobre qual modelo é o melhor
+
+Subir este repositório completo no GitHub
+
+Atualizar o PDF de entrega com o link do repositório
+
+📊 Observações
+
+O scraping pode demorar alguns minutos — aguarde a coleta completa dos 250 filmes.
+
+Caso alguma execução falhe por mudanças no HTML do IMDb, rode novamente.
+
+O diretório data/ é criado automaticamente ao salvar os resultados.
