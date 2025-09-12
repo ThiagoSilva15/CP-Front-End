@@ -2,7 +2,7 @@
 IMDB Top 250 — Clusterização com KMeans
 
 Nome: Thiago Almança da Silva — RM 558108
-Prazo de entrega: 14/09/2025 às 23:59 (America/Sao_Paulo)
+
 
 📁 Estrutura do Projeto
 .
@@ -13,73 +13,71 @@ Prazo de entrega: 14/09/2025 às 23:59 (America/Sao_Paulo)
 │   ├── imdb_top250_raw.csv
 │   ├── imdb_top250_k5_synopsis.csv
 │   └── imdb_top250_k5_allfeatures.csv
-├── requirements.txt
+├── requirements.txt                             # Dependências do projeto
 └── README.md
 
 ⚙️ Configuração do Ambiente
-
-Criar e ativar um ambiente virtual
-
+1. Criar e ativar um ambiente virtual
 python -m venv .venv
+
 # Windows
 .venv\Scripts\activate
+
 # Linux/macOS
 source .venv/bin/activate
 
-
-Instalar as dependências
-
+2. Instalar as dependências
 pip install -r requirements.txt
 
 🚀 Execução dos Notebooks
-Notebook 1 — 01_scrape_and_kmeans_synopsis.ipynb
+📌 Notebook 1 — Scraping + KMeans (apenas sinopse)
 
-Realiza web scraping dos 250 filmes do IMDB Top 250
+Realiza scraping dos filmes do IMDB Top 250
 
-Gera a base data/imdb_top250_raw.csv
+Vetorização TF-IDF das sinopses
 
-Aplica TF-IDF na sinopse e KMeans (k=5)
+KMeans (k=5) apenas com dados textuais
 
-Salva os resultados em data/imdb_top250_k5_synopsis.csv
+Gera os arquivos:
 
-Inclui análise e visualização 3D dos clusters por sinopse
+data/imdb_top250_raw.csv
 
-Notebook 2 — 02_kmeans_all_features.ipynb
+data/imdb_top250_k5_synopsis.csv
 
-Carrega os dados gerados pelo Notebook 1
+Inclui gráficos 3D dos clusters
 
-Inclui features adicionais: gêneros, notas, votos, ano e duração
+📌 Notebook 2 — KMeans com todas as features
 
-Executa o KMeans (k=5) com todas as features combinadas
+Utiliza como entrada: sinopses + gêneros + notas + votos + ano + duração
 
-Salva data/imdb_top250_k5_allfeatures.csv
+Aplica o mesmo processo de vetorização + escalonamento + KMeans (k=5)
 
-Gera métricas (Silhouette, Calinski-Harabasz, Davies-Bouldin)
+Compara com o Modelo 1 (apenas sinopse)
 
-Visualiza os clusters em 3D
+Gera os arquivos:
 
-Compara os resultados entre:
+data/imdb_top250_k5_allfeatures.csv
 
-Modelo 1: apenas sinopse
+Produz métricas (Silhouette, Calinski-Harabasz, Davies-Bouldin)
 
-Modelo 2: todas as features
+Mostra gráficos 3D e análise comparativa dos clusters
 
-📌 Entregáveis
+✅ Entregáveis
 
 Preencher no final do Notebook 2:
 
-Insights e conclusões obtidas
+📌 Insights e conclusões obtidas
 
-Justificativa clara sobre qual modelo é o melhor
+🏆 Justificativa sobre qual modelo é o melhor
 
-Subir este repositório completo no GitHub
+Subir este projeto completo no GitHub
 
-Atualizar o PDF de entrega com o link do repositório
+Inserir o link do repositório no PDF de entrega
 
-📊 Observações
+⚡ Observações
 
-O scraping pode demorar alguns minutos — aguarde a coleta completa dos 250 filmes.
+O scraping pode levar alguns minutos — aguarde a coleta completa.
 
-Caso alguma execução falhe por mudanças no HTML do IMDb, rode novamente.
+Caso ocorra falha por mudanças no HTML do IMDb, execute novamente.
 
-O diretório data/ é criado automaticamente ao salvar os resultados.
+O diretório data/ é criado automaticamente durante a execuçã
