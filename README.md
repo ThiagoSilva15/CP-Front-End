@@ -154,9 +154,3 @@ pip install -r requirements.txt
 * Qualidade do scraping pode variar se a estrutura do site mudar.
 
 ---
-
-## 👤 Autor
-
-**Thiago Almança da Silva — RM558108**
-
-*Trabalho acadêmico. Uso educacional.*
