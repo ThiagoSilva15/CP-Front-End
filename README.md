@@ -1,80 +1,77 @@
+# 🎬 Checkpoint CP1 — IMDB Top 250 (KMeans)
 
+**Aluno:** RM558108 — Thiago Almança da Silva
+**Disciplina:** Machine Learning — Clusterização (K-Means)
 
-#🎬 Checkpoint CP1 – IMDB Top 250 (KMeans)
-#👨‍🎓 Aluno
+---
 
-RM558108 — Thiago Almança da Silva
+## 🎯 Objetivo
 
-#🎯 Objetivo
+Aplicar técnicas de **processamento de texto** e **clusterização** com **K-Means** sobre os 250 filmes mais bem avaliados do IMDB, agrupando obras semelhantes a partir de **sinopses**, **gêneros** e **atributos numéricos** (nota, votos, ano e duração). Foram desenvolvidos **dois modelos** para comparação de desempenho e qualidade dos clusters.
 
-Aplicar técnicas de processamento de texto e clusterização com KMeans sobre os 250 filmes mais bem avaliados do IMDB, com o objetivo de agrupar filmes semelhantes com base em suas sinopses, gêneros e atributos numéricos (nota, votos, ano e duração).
-Foram desenvolvidos dois modelos distintos para comparação de desempenho e qualidade dos clusters.
+---
 
-#⚙️ Etapas Realizadas
+## 🧭 Visão Geral da Abordagem
 
-Coleta e pré-processamento dos dados
+1. **Coleta**: web scraping dos 250 filmes do *IMDB Top 250*.
+2. **Limpeza & Pré-processamento**: padronização de colunas (sinopse, nota, votos, ano, duração, gêneros).
+3. **Representação dos dados**:
 
-Web scraping dos 250 filmes do IMDB Top 250
+   * Texto: **TF-IDF** das sinopses.
+   * Gêneros: **One-Hot Encoding**.
+   * Atributos numéricos: **padronização** (z-score).
+4. **Redução de dimensionalidade**: **TruncatedSVD** (configurável nos notebooks).
+5. **Clusterização**: **KMeans (k = 5)**.
+6. **Avaliação**: *Silhouette Score*, *Calinski–Harabasz* e *Davies–Bouldin*.
+7. **Visualização**: projeção **3D** dos clusters com Matplotlib.
 
-Limpeza e padronização das colunas (sinopse, nota, votos, ano, duração, gêneros)
+> **Por que SVD?** Para reduzir ruído/colinearidade do espaço TF‑IDF e acelerar o KMeans em alta dimensão, preservando variância relevante.
 
-Modelo 1 — apenas sinopse
+---
 
-Vetorização TF-IDF do texto
+## ⚙️ Modelos Construídos
 
-Redução de dimensionalidade com TruncatedSVD
+### 🔹 Modelo 1 — apenas sinopse
 
-Clusterização com KMeans (k=5)
+* Vetorização **TF-IDF** da sinopse.
+* **TruncatedSVD** para redução de dimensionalidade.
+* **KMeans (k = 5)**.
 
-Modelo 2 — todas as features
+### 🔹 Modelo 2 — todas as features
 
-Combinação de TF-IDF (sinopse), gêneros (one-hot), e atributos numéricos padronizados
+* **TF-IDF** da sinopse + **One-Hot** de gêneros + **atributos numéricos padronizados** (nota, votos, ano, duração).
+* **TruncatedSVD** para compactação do espaço combinado.
+* **KMeans (k = 5)**.
 
-Redução de dimensionalidade com TruncatedSVD
+---
 
-Clusterização com KMeans (k=5)
+## 📊 Métricas de Avaliação
 
-Avaliação e visualização
+| Modelo                           | Silhouette ↑ | Calinski–Harabasz ↑ | Davies–Bouldin ↓ |
+| -------------------------------- | :----------: | :-----------------: | :--------------: |
+| **Modelo 1 — apenas sinopse**    |   **0.13**   |         1.44        |       1.46       |
+| **Modelo 2 — todas as features** |     0.07     |       **2.80**      |     **0.93**     |
 
-Cálculo das métricas:
+**Interpretação**
+O **Modelo 2** apresentou **maior coesão e separação** entre clusters (↑ Calinski–Harabasz, ↓ Davies–Bouldin) ao incorporar múltiplas variáveis além do texto. Embora o *Silhouette* tenha sido levemente menor, o ganho nas outras métricas e a melhor separação visual favorecem o **Modelo 2** como vencedor.
 
-Silhouette Score
+---
 
-Calinski-Harabasz Index
+## 🔎 Insights e Exemplos de Clusters
 
-Davies-Bouldin Index
+* **Crime/Drama clássicos**
+* **Fantasia/Aventura épica**
+* **Sci‑fi/Ação modernos**
+* **Históricos/Biográficos**
+* **Thrillers psicológicos / arthouse**
 
-Gráficos 3D dos clusters com Matplotlib
+> **Observação:** O **Modelo 1** tende a formar grupos **mais temáticos** (pelas palavras‑chave das sinopses), porém com **baixa coesão interna**. O **Modelo 2** produz **clusters mais equilibrados**, combinando **conteúdo** (sinopse) e **contexto** (gêneros, votos, nota, ano, duração).
 
-#🧪 Comparativo dos Modelos
-Modelo	Silhouette ↑	Calinski-Harabasz ↑	Davies-Bouldin ↓
-Modelo 1 — apenas sinopse	0.13	1.44	1.46
-Modelo 2 — todas as features	0.07	2.80	0.93
+---
 
-O Modelo 2 apresentou maior coesão e separação entre os clusters, principalmente por incluir múltiplas variáveis além do texto.
-Apesar de a Silhouette ter sido levemente inferior (efeito comum ao adicionar mais dimensões), o Calinski-Harabasz aumentou e o Davies-Bouldin caiu, indicando clusters mais densos e bem definidos.
+## 🗂️ Estrutura do Projeto
 
-#📊 Insights e Conclusões
-
-Os clusters capturaram grupos coerentes de filmes como:
-
-Crime/Drama clássicos
-
-Épicos de fantasia/aventura
-
-Sci-fi/ação modernos
-
-Filmes históricos/biográficos
-
-Thrillers psicológicos/arthouse
-
-O Modelo 1 gerou grupos mais temáticos (palavras-chave), porém menos coesos.
-
-O Modelo 2 criou grupos mais consistentes e equilibrados, pois considera tanto o conteúdo (sinopse) quanto o contexto (gêneros, votos, nota, ano, duração).
-
-Assim, o Modelo 2 foi escolhido como melhor por apresentar métricas mais robustas e clusters menos difusos visualmente.
-
-#📁 Estrutura do Projeto
+```
 .
 ├── notebooks/
 │   ├── 01_scrape_and_kmeans_synopsis.ipynb      # Scraping + clusterização por sinopse
@@ -85,45 +82,81 @@ Assim, o Modelo 2 foi escolhido como melhor por apresentar métricas mais robust
 │   └── imdb_top250_k5_allfeatures.csv
 ├── requirements.txt
 └── README.md
+```
 
-#⚙️ Como Executar
+---
 
-Criar e ativar um ambiente virtual:
+## ⚙️ Como Executar
 
+### 1) Pré‑requisitos
+
+* **Python 3.10+**
+* **pip** e **venv**
+* Navegador/driver compatível, se necessário para o scraping
+
+### 2) Criar e ativar o ambiente virtual
+
+```bash
 python -m venv .venv
-
 # Windows
 .venv\Scripts\activate
-
 # Linux/macOS
 source .venv/bin/activate
+```
 
+### 3) Instalar dependências
 
-Instalar as dependências:
-
+```bash
 pip install -r requirements.txt
+```
 
+### 4) Executar os notebooks
 
-Executar os notebooks:
+* **Notebook 1**: scraping + KMeans (sinopse)
+  Saída: `data/imdb_top250_k5_synopsis.csv`
 
-Notebook 1: scraping + KMeans (sinopse) → gera imdb_top250_k5_synopsis.csv
+* **Notebook 2**: KMeans (todas as features)
+  Saída: `data/imdb_top250_k5_allfeatures.csv`
 
-Notebook 2: KMeans (todas as features) → gera imdb_top250_k5_allfeatures.csv
+> As **figuras 3D** dos clusters são geradas nos próprios notebooks.
 
-#🔍 Possíveis Melhorias Futuras
+---
 
-Testar embeddings semânticos (Sentence Transformers) para sinopses
+## 📦 Saídas Geradas
 
-Explorar outros algoritmos de clusterização (DBSCAN, HDBSCAN, Spectral)
+* `data/imdb_top250_raw.csv`: base bruta pós-scraping.
+* `data/imdb_top250_k5_synopsis.csv`: clusters pelo Modelo 1.
+* `data/imdb_top250_k5_allfeatures.csv`: clusters pelo Modelo 2.
 
-Ajustar pesos relativos entre texto, gêneros e atributos numéricos
+---
 
-Experimentar outros valores de k usando métodos como Elbow e Silhouette média
+## 🧪 Reprodutibilidade
 
-Implementar pipeline automática para coleta e atualização da base
+* Defina `random_state` do KMeans e do SVD nos notebooks para reexecuções consistentes.
+* `k` é **configurável** (experimente junto com método do **cotovelo** e *silhouette média*).
 
-#🔗 Links
+---
 
-📓 Notebooks no Colab: [inserir link]
+## 🚀 Melhorias Futuras
 
-🐙 Repositório no GitHub: [inserir link]
+* Testar **embeddings semânticos** (ex.: *Sentence Transformers*).
+* Explorar **DBSCAN**, **HDBSCAN** e **Spectral Clustering**.
+* **Ajustar pesos** entre texto e atributos numéricos.
+* **Variação de k** (métodos de *elbow* e *silhouette*).
+* **Automatizar** atualização da base via **scraping agendado** (cron/Cloud Scheduler).
+
+---
+
+## 🧩 Limitações
+
+* TF‑IDF captura bem termos, mas **não** relações semânticas profundas.
+* KMeans pressupõe clusters esféricos; dados reais podem violar essa hipótese.
+* Qualidade do scraping pode variar se a estrutura do site mudar.
+
+---
+
+## 👤 Autor
+
+**Thiago Almança da Silva — RM558108**
+
+*Trabalho acadêmico. Uso educacional.*
