@@ -1,6 +1,6 @@
 # 🎬 Checkpoint CP1 — IMDB Top 250 (KMeans)
 
-**Aluno:** RM558108 — Thiago Almança da Silva
+**Aluno:** Thiago Almança da Silva — RM558108 
 **Disciplina:** Machine Learning — Clusterização (K-Means)
 
 ---
